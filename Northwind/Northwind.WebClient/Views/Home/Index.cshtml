@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CustomerConciseViewModel>
+@{
+    ViewData["Title"] = "Customers List";
+}
+
+<div class="col-10 m-auto">
+    <div class="row justify-content-between col-12 p-0 m-0">
+        <h3>@ViewData["Title"]</h3>
+        <form id="search" method="get" asp-area="" asp-controller="Home" asp-action="Search" class="form-inline my-2 my-lg-0">
+            <input name="SearchTerm" class="form-control mr-sm-2" type="search" placeholder="Search by name..." aria-label="Search">
+            <button id="submitButton" class="btn btn-info my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
+        </form>
+    </div>
+    <br />
+    <div id="result">
+        <partial name="_CustomerList" />
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(function () {
+            $('form[id=search]').submit(function (event) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                $('#submitButton').attr('disabled', true);
+                $.ajax({
+                    url: this.action,
+                    method: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        $('#result').html(result);
+                        $('#submitButton').attr('disabled', false);
+                    },
+                    error: function(error) {
+                        $('#result').html("<p class='text-danger'>An error occurred. Please contact administrator.</p>");
+                        $('#submitButton').attr('disabled', false);
+                    }
+                });                  
+            });   
+        });
+    </script>
+}
+
+

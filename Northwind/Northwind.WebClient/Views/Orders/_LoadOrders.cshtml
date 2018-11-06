@@ -1,0 +1,19 @@
+﻿@model IEnumerable<OrderConciseViewModel>
+
+<h3>Customer Orders</h3>
+
+<table class="table table-striped mt-4 mb-4">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Products Count</th>
+            <th>Total Amount</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.DisplayForModel()
+    </tbody>
+</table>
+
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })

@@ -1,0 +1,14 @@
+﻿@model CustomerConciseViewModel
+
+<tr>
+    <td>
+        @Model.No
+    </td>
+    <td>
+        <a asp-area="" asp-controller="Customers" asp-action="Details" asp-route-id="@Model.Id">@Html.Raw(Model.ContactName)</a>
+    </td>
+    <td>
+        @Model.OrdersCount
+    </td>
+</tr>
+

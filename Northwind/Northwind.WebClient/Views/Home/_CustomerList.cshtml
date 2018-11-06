@@ -1,0 +1,28 @@
+﻿@model IEnumerable<CustomerConciseViewModel>
+
+<table class="table table-striped mt-4 mb-4">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Customer Name</th>
+            <th>Orders Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @Html.DisplayForModel()
+        }
+        else
+        {
+            if (ViewContext.ModelState.ErrorCount == 0)
+            {
+                <tr>
+                    <td colspan="3" class="text-center text-info font-weight-bold">
+                        No results found.
+                    </td>
+                </tr>
+            }            
+        }
+    </tbody>
+</table>

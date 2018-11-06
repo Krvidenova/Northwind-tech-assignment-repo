@@ -1,0 +1,79 @@
+﻿@model CustomerDetailsViewModel
+@{
+    ViewData["Title"] = "Customer Details";
+}
+<div class="col-10 m-auto">
+    <h2 class="mb-5">@ViewData["Title"]</h2>
+    <div class="mb-4" style="background-color: #F2F2F2">
+        <div id="info" class="row col-12 mx-auto p-3 m-0" style="font-size: large">
+            <div class="col-md-6 p-2">
+                <label asp-for="ContactName" class="font-weight-bold mr-4">Full Name:</label>
+                @Model.ContactName
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="ContactTitle" class="font-weight-bold mr-4">Contact Title:</label>
+                @Model.ContactTitle
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="CompanyName" class="font-weight-bold mr-4">Company Name:</label>
+                @Model.CompanyName
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="Country" class="font-weight-bold mr-4">@nameof(Model.Country):</label>
+                @Model.Country
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="Address" class="font-weight-bold mr-4">@nameof(Model.Address):</label>
+                @Model.Address
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="City" class="font-weight-bold mr-4">@nameof(Model.City):</label>
+                @Model.City
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="PostalCode" class="font-weight-bold mr-4">Postal Code:</label>
+                @Model.PostalCode
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="Region" class="font-weight-bold mr-4">@nameof(Model.Region):</label>
+                @Model.Region
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="Phone" class="font-weight-bold mr-4">@nameof(Model.Phone):</label>
+                @Model.Phone
+            </div>
+            <div class="col-md-6 p-2">
+                <label asp-for="Fax" class="font-weight-bold mr-4">@nameof(Model.Fax):</label>
+                @Model.Fax
+            </div>
+        </div>
+    </div>
+    @if (Model.OrdersCount != 0)
+    {
+        <div class="row justify-content-center">
+            <button id="load" class="btn btn-info">Load Orders</button>
+        </div>
+        <div id="orders"></div>
+    }
+    else
+    {
+        if (ViewContext.ModelState.ErrorCount == 0)
+        {
+            <p class="text-info font-weight-bold">There are no orders to display.</p>
+        }
+    }
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+
+@section Scripts{
+    <script>
+        $("button#load").click(function(event) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            $("button#load").parent().remove();
+            $("#orders").load("@Url.Action("LoadOrders", "Orders", new { customerId = Model.Id})");
+        });
+    </script>
+}
+

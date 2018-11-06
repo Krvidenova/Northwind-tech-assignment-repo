@@ -1,0 +1,30 @@
+﻿@model OrderConciseViewModel
+
+<tr>
+    <td>
+        @Model.Id
+    </td>
+    <td>
+        @Model.ProductsCount
+    </td>
+    <td>
+        @string.Format("{0:0.00}", Model.TotalAmount)
+    </td>
+    <td>
+        @if (Model.DiscontinuedProduct != null || Model.InsufficientStock != null)
+        {
+            <ul class="m-0 list-unstyled">
+                @if (Model.DiscontinuedProduct != null)
+                {
+                    <li class="text-danger">@Model.DiscontinuedProduct</li>
+                }
+                @if (Model.InsufficientStock != null)
+                {
+                    <li class="text-danger">@Model.InsufficientStock</li>
+                }
+
+            </ul>
+        }
+    </td>
+</tr>
+
